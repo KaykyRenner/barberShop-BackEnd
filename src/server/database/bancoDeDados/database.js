@@ -9,7 +9,9 @@ const db = knex({
         database: process.env.DB_NAME,
         port:process.env.DB_PORT
         
-    }, 
+    },
+    pool: {min:2,max:10},
+    acquireConnectionTimeout:10000
 });
 
 
