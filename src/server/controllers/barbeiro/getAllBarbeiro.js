@@ -18,7 +18,7 @@ const getAllSchemasResultados = async (req,res) =>{
         // Configuração do cabeçalho para a contagem total
         res.setHeader('x-total-count', totalCount);
         return res.status(getAll.status).json({
-            message:'barbeiro encontrado',
+            message:getAll.message,
             barbeiros:getAll.barbeiros
         })
         
