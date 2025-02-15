@@ -11,19 +11,19 @@ router.get('/', (req,res)=>{
 });
 //rota da barberaria
 router.post('/barbeiro',authenticate,barbeiroController.createSchemasValidation,barbeiroController.createSchemasResultados)
-router.delete('/barbeiro/:id',barbeiroController.deleteSchemasValidation,barbeiroController.deleteSchemasResultados)
-router.put('/barbeiro/:id',barbeiroController.updateSchemasValidation,barbeiroController.updateSchemasResultados)
-router.get('/barbeiro/:id',barbeiroController.getSchemasValidation, barbeiroController.getSchemasResultados)
-router.get('/barbeiro',barbeiroController.getAllSchmasValidation, barbeiroController.getAllSchemasResultados)
+router.delete('/barbeiro/:id',authenticate,barbeiroController.deleteSchemasValidation,barbeiroController.deleteSchemasResultados)
+router.put('/barbeiro/:id',authenticate,barbeiroController.updateSchemasValidation,barbeiroController.updateSchemasResultados)
+router.get('/barbeiro/:id',authenticate,barbeiroController.getSchemasValidation, barbeiroController.getSchemasResultados)
+router.get('/barbeiro',authenticate,barbeiroController.getAllSchmasValidation, barbeiroController.getAllSchemasResultados)
 //horario do barbeiro
-router.put('/barbeiro/horario/:id',horarioController.horarioSchemaValidation,horarioController.horariosSchemasResultados)
-router.get('/barbeiro/:id/horario',horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
+router.put('/barbeiro/horario/:id',authenticate,horarioController.horarioSchemaValidation,horarioController.horariosSchemasResultados)
+router.get('/barbeiro/:id/horario',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
 //rota cliente
-router.post('/cliente', clienteController.CreateSchemasValidation,clienteController.createClienteSchemasResultados)
-router.delete('/cliente/:id', clienteController.deleteClienteValidation, clienteController.deleteClienteSchemasResultados);
-router.put('/cliente/:id', clienteController.updateClienteSchemasValidation, clienteController.updateClienteSchemasResultados);
-router.get('/cliente/:id',clienteController.getClienteSchemasValidation,clienteController.getClienteSchemasResultados)
-router.get('/cliente',clienteController.getAllSchemasValidation,clienteController.getAllSchemasResultados)
+router.post('/cliente',authenticate, clienteController.CreateSchemasValidation,clienteController.createClienteSchemasResultados)
+router.delete('/cliente/:id',authenticate, clienteController.deleteClienteValidation, clienteController.deleteClienteSchemasResultados);
+router.put('/cliente/:id',authenticate, clienteController.updateClienteSchemasValidation, clienteController.updateClienteSchemasResultados);
+router.get('/cliente/:id',authenticate,clienteController.getClienteSchemasValidation,clienteController.getClienteSchemasResultados)
+router.get('/cliente',authenticate,clienteController.getAllSchemasValidation,clienteController.getAllSchemasResultados)
 //login
 router.post('/cadastrar',usuarioController.singUpValidation,usuarioController.singUpResultados)
 router.post('/entrar',usuarioController.singInValidation,usuarioController.singInResultados)
