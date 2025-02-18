@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken'); // Corrigido o nome
 
-const sing = (id) => {
+const sing = (id,role) => {
     if (!process.env.JWT_SECRET) {
         return {
             message: 'JWT_SECRET_NOT_FOUND',
             error: ''
         };
     }
-    return jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ id: id,role:role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 
 const verify = (token) => {
@@ -18,7 +18,7 @@ const verify = (token) => {
         return { success: true, data: decoded }; // Retorna os dados decodificados do token
     } catch (err) {
         return {
-            error: 'Token inválido ou expirado'
+            error: 'Token inválido ou expirado',
         };
     }
 };

@@ -31,7 +31,8 @@ const singInResultados = async (req,res) => {
             }); 
         }
         const id = resultEmail.usuario.id
-        const token = sing( id)
+        const role = resultEmail.usuario.role
+        const token = sing(id,role)
 
         return res.status(resultEmail.status).json({
             message:resultEmail.message,

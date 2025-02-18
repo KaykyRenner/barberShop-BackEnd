@@ -28,8 +28,8 @@ const esquemavalidation = yup.object().shape({
 const updateClienteSchemasResultados= async (req,res)=>{
     try{
         const {id} = req.params
-        const {nomeCliente,emailCliente,telefoneCliente} = req.body
-        const atualizandoCliente = await updateCliente(id,nomeCliente,emailCliente,telefoneCliente)
+        const {nomeCliente,emailCliente,telefoneCliente,role} = req.body
+        const atualizandoCliente = await updateCliente(id,nomeCliente,emailCliente,telefoneCliente,role)
         //banco
         return res.status(atualizandoCliente.status).json({
             massage:atualizandoCliente.message,

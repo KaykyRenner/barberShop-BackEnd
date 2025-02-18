@@ -17,7 +17,9 @@ router.get('/barbeiro/:id',authenticate,barbeiroController.getSchemasValidation,
 router.get('/barbeiro',authenticate,barbeiroController.getAllSchmasValidation, barbeiroController.getAllSchemasResultados)
 //horario do barbeiro
 router.put('/barbeiro/horario/:id',authenticate,horarioController.horarioSchemaValidation,horarioController.horariosSchemasResultados)
-router.get('/barbeiro/:id/horario',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
+router.get('/barbeiros/:id/horarios',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
+//agendar Horario
+router.put('/cliente/agendamento/:id')
 //rota cliente
 router.post('/cliente',authenticate, clienteController.CreateSchemasValidation,clienteController.createClienteSchemasResultados)
 router.delete('/cliente/:id',authenticate, clienteController.deleteClienteValidation, clienteController.deleteClienteSchemasResultados);

@@ -1,8 +1,14 @@
 const { StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
 
-const createCliente = async (nomeCliente, emailCliente, telefoneCliente,user_id) => {
+const createCliente = async (nomeCliente, emailCliente, telefoneCliente,user_id,role) => {
     try {
+        if(role !== 'cliente'){
+            return {
+                message:'você não tem permissão',
+                status:StatusCodes.FORBIDDEN
+            }
+        }
         // Verifica se já existe um cliente com o mesmo email ou telefone
         const existingCliente = await knex('cliente')
             .select('id', 'nomeCliente', 'emailCliente', 'telefoneCliente','barbeiro_Id')

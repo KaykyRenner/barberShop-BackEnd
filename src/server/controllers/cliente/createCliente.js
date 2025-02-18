@@ -30,8 +30,8 @@ const esquemavalidation = yup.object().shape({
 })
 const createClienteSchemasResultados = async(req,res)=>{
     try{ 
-        const {nomeCliente,emailCliente,telefoneCliente,usuario_id} = req.body
-        const newCliente = await createCliente(nomeCliente,emailCliente,telefoneCliente,usuario_id)
+        const {nomeCliente,emailCliente,telefoneCliente,usuario_id,role} = req.body
+        const newCliente = await createCliente(nomeCliente,emailCliente,telefoneCliente,usuario_id,role)
         //banco de dados
         return res.status(newCliente.status)
         .json({message:newCliente.message,

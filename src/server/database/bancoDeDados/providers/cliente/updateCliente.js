@@ -1,8 +1,14 @@
 const { StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
 
-const updateCliente = async (id,nomeCliente,emailCliente,telefoneCliente) => {
+const updateCliente = async (id,nomeCliente,emailCliente,telefoneCliente,role) => {
     try{
+        if(role !== 'cliente'){
+            return {
+                message:'você não tem permissão',
+                status:StatusCodes.FORBIDDEN
+            }
+        }
         const resultado = await knex('cliente')
         .where({id})
         .update({nomeCliente,emailCliente,telefoneCliente})

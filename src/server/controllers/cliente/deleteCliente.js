@@ -12,8 +12,9 @@ const esquemavalidation = yup.object().shape({
 const deleteClienteSchemasResultados = async (req,res)=>{
     try{
         const {id} = req.params
+        const {role} = req.body
         //banco
-        const deletandoCliente = await deleteCliente(id)
+        const deletandoCliente = await deleteCliente(id,role)
         return res.status(deletandoCliente.status).json({
             message:deletandoCliente.message
         })

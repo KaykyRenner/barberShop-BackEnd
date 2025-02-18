@@ -1,7 +1,13 @@
 const { StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
-const deleteCliente= async (id) => {
+const deleteCliente= async (id,role) => {
     try{
+        if(role !== 'cliente'){
+            return {
+                message:'você não tem permissão',
+                status:StatusCodes.FORBIDDEN
+            }
+        }
         const resultado = await knex('cliente').where('id',id).delete()
         if(resultado){
             return {message:'cliente deletado', status:StatusCodes.OK}

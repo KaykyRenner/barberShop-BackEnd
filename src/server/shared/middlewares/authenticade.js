@@ -25,7 +25,7 @@ const authenticate = async (req, res, next) => {
         }
 
         console.log("Token verificado:", decodedToken);
-
+        req.body.role = decodedToken.data.role
         req.body.usuario_id = decodedToken.data.id;
         next();
     } catch (err) {
