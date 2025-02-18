@@ -10,7 +10,8 @@ const criarTabelaBarbeiro = async (conexao) => {
                 table.bigInteger('user_id').unsigned().notNullable();
 
                 // Garante que a tabela usuarios existe antes de referenciar
-                table.foreign('user_id').references('id').inTable('usuarios').onDelete('CASCADE');
+                table.foreign('user_id').references('id')
+                .inTable('usuarios').onDelete('CASCADE')
             });
             console.log('Tabela Barbeiros criada com sucesso');
         } else {

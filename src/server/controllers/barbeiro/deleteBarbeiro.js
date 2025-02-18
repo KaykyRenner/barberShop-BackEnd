@@ -13,9 +13,10 @@ const esquemavalidation = yup.object().shape({
 const deleteSchemasResultados = async (req,res) =>{
     try{
         const {id} = req.params
+        const {role} = req.body
 
         //delete barbeiro
-        const resultado = await deleteBarbeiro(id)
+        const resultado = await deleteBarbeiro(id,role)
         return res.status(resultado.status).json({message:resultado.message})
     }catch(err){
         res.status(StatusCodes.INTERNAL_SERVER_ERROR)

@@ -1,7 +1,13 @@
 const{ StatusCodes } = require('http-status-codes');
 const knex = require('../../database'); // Ajuste o caminho conforme necessário
-const UpdateBarbeiro = async(id,nomeBarbeiro,emailBarbeiro,telefoneBarbeiro ) =>{
+const UpdateBarbeiro = async(id,nomeBarbeiro,emailBarbeiro,telefoneBarbeiro,role ) =>{
     try{
+        if(role !== 'barbeiro'){
+            return {
+                status:StatusCodes.FORBIDDEN,
+                message:'você não tem permisão'
+            }
+        }
         const resultado = await knex('barbeiros')
         .where({id})
         .update({nomeBarbeiro,emailBarbeiro,telefoneBarbeiro})

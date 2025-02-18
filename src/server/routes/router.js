@@ -4,7 +4,7 @@ const {authenticate} = require('../shared/middlewares/authenticade')
 //facilitando a ultilização de status
 const {StatusCode} = require('http-status-codes');
 //importanto as rotas da cidade
-const {barbeiroController,clienteController,horarioController, usuarioController} = require('../controllers/index');
+const {barbeiroController,clienteController,horarioController, usuarioController,agendamentoControlelr} = require('../controllers/index');
 
 router.get('/', (req,res)=>{
     res.send("barbearia funcionando");
@@ -19,7 +19,7 @@ router.get('/barbeiro',authenticate,barbeiroController.getAllSchmasValidation, b
 router.put('/barbeiro/horario/:id',authenticate,horarioController.horarioSchemaValidation,horarioController.horariosSchemasResultados)
 router.get('/barbeiros/:id/horarios',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
 //agendar Horario
-router.put('/cliente/agendamento/:id')
+router.put('/cliente/agendamento/:id',authenticate,agendamentoControlelr.agendaHorarioValidation,agendamentoControlelr.agendarHorarioResultados)
 //rota cliente
 router.post('/cliente',authenticate, clienteController.CreateSchemasValidation,clienteController.createClienteSchemasResultados)
 router.delete('/cliente/:id',authenticate, clienteController.deleteClienteValidation, clienteController.deleteClienteSchemasResultados);

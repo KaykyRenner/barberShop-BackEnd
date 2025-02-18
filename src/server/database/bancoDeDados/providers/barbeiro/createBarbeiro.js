@@ -2,26 +2,34 @@ const{ StatusCodes } = require('http-status-codes');
 const knex = require('../../database'); // Ajuste o caminho conforme necessário
 
 // Função para criar um barbeiro
-const createBarbeiro = async (nomeBarbeiro, emailBarbeiro, telefoneBarbeiro,user_id) => {
+const createBarbeiro = async (nomeBarbeiro, emailBarbeiro, telefoneBarbeiro,user_id,role) => {
     try {
+        if(role !== 'barbeiro'){
+            return {
+                status:StatusCodes.FORBIDDEN,
+                message:'você não tem permisão'
+            }
+        }
         const existingBarbeiro = await knex('barbeiros')
         .select('id')
-        .where('emailBarbeiro', emailBarbeiro)
+        .where('user_id', user_id)
         .first();
+        console.log('Resultado da busca:', existingBarbeiro);
         if (existingBarbeiro) {
             // Caso o email já exista, retorna um erro de duplicação
             return {
-                message: 'O e-mail já está cadastrado.',
+                message: 'você já está cadastrado',
                 status: StatusCodes.BAD_REQUEST  // Aqui, retornando o valor numérico
             };
         }
-        // Inserir um novo barbeiro na tabela
-        await knex('barbeiros').insert({
+       // Inserir um novo barbeiro na tabela
+         await knex('barbeiros').insert({
             nomeBarbeiro,
             emailBarbeiro,
             telefoneBarbeiro,
             user_id
-        });
+            }
+        );
         // Buscar o ID do barbeiro recém inserido
         const resultado = await knex('barbeiros')
             .select('id', 'nomeBarbeiro', 'emailBarbeiro', 'telefoneBarbeiro')

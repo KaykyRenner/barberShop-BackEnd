@@ -29,8 +29,8 @@ const esquemavalidation = yup.object().shape({
 const updateSchemasResultados = async (req,res) =>{
     try{
         const {id} = req.params
-        const {nomeBarbeiro,emailBarbeiro,telefoneBarbeiro} = req.body
-        const newUpdateBarbeiro = await UpdateBarbeiro(id,nomeBarbeiro,emailBarbeiro,telefoneBarbeiro)
+        const {nomeBarbeiro,emailBarbeiro,telefoneBarbeiro,role} = req.body
+        const newUpdateBarbeiro = await UpdateBarbeiro(id,nomeBarbeiro,emailBarbeiro,telefoneBarbeiro,role)
         //atualizar
         return res.status( newUpdateBarbeiro.status).json({
             message: newUpdateBarbeiro.message,

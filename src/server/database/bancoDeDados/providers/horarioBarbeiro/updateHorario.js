@@ -1,7 +1,13 @@
 const { StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
-const updateHorario =async (id,horario) => { 
+const updateHorario =async (id,horario,role) => { 
     try{
+        if(role !== 'barbeiro'){
+            return {
+                status:StatusCodes.FORBIDDEN,
+                message:'você não tem permisão'
+            }
+        }
         const resultado = await knex('horarioBarbeiro').where({id})
         .update({horario})
         if(resultado){

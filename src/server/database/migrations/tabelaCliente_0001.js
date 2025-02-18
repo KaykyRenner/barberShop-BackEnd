@@ -15,7 +15,8 @@ const createTabelaCliente = async (conexao) => {
                     .inTable('barbeiros')
                     .onUpdate('CASCADE')
                     .onDelete('RESTRICT');
-            table.foreign('user_id').references('id').inTable('usuarios').onDelete('CASCADE')
+            table.foreign('user_id').references('id')
+            .inTable('usuarios').onDelete('CASCADE')
             });
             console.log('Tabela Cliente criada com sucesso');
         } else {

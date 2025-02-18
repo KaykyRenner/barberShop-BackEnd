@@ -21,9 +21,9 @@ const esquemavalidation = yup.object().shape({
 const horariosSchemasResultados = async (req,res)=>{
     try{
         const {id} = req.params// extrai o id do horario
-        const {horarioAtualizado} = req.body
+        const {horarioAtualizado,role} = req.body
         //banco
-        const resultadoUpdate = await updateHorario(id,horarioAtualizado)
+        const resultadoUpdate = await updateHorario(id,horarioAtualizado,role)
         return res.status(resultadoUpdate.status).json({
             horarioAtualizado:resultadoUpdate.horario,
             message:resultadoUpdate.message

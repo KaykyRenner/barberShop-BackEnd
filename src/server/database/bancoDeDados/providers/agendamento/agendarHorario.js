@@ -1,7 +1,18 @@
 const { StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
-const reservarHorario = async (reservar,idHorario,role) => {
+const reservarHorario = async (reservar,idHorario,role,user_id) => {
     try{
+        const cliente_idResult = await knex('cliente')
+        .select('id')
+        .where({ user_id })
+        .first();
+        if(!cliente_idResult){
+            return {
+                message: 'Cliente não encontrado.',
+                status: StatusCodes.NOT_FOUND,
+            };
+        }
+        const clienteId =cliente_idResult.id
         if(role !== 'cliente'){
             return {
                 message:'você não tem permissão',
@@ -26,7 +37,7 @@ const reservarHorario = async (reservar,idHorario,role) => {
         
         const resultado = await knex('horarioBarbeiro')
             .where({id:idHorario})
-            .update({status:reservar})
+            .update({status:reservar,cliente_id:clienteId})
         if(resultado){
             const horarioReservado = await knex('horarioBarbeiro')
             .select('horario')

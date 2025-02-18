@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { verify } = require("../services/JWT");
-
+const db = require("../../database/bancoDeDados/database")
 const authenticate = async (req, res, next) => {
     try {
         const { authorization } = req.headers;

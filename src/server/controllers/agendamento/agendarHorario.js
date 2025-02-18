@@ -10,8 +10,9 @@ const esquemaValidation = yup.object().shape({
 const agendarHorarioResultados = async (req,res) => {
     try{
         const {id} = req.params
-        const {reservar,role} = req.body;
-        const agendamento = await reservarHorario(reservar,id,role)
+        const {reservar,role,usuario_id} = req.body;
+        console.log(usuario_id)
+        const agendamento = await reservarHorario(reservar,id,role,usuario_id)
         return res.status(agendamento.status).json({
             message: agendamento.message,
             dados: agendamento.horarioReservado || null

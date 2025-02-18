@@ -13,9 +13,11 @@ const startServer = async () => {
         // Se a tabela 'usuarios' foi criada (ou já existia), prosseguir com as outras
         if (tabelaUsuarioCriada) {
             console.log("Tabela 'usuarios' criada. Criando as demais tabelas...");
-            await tabelasController.criarTabelaBarbeiro(db);
-            await tabelasController.createTabelaCliente(db);
-            await tabelasController.criaTabelaHorario(db);
+            const tabelaBarbeiroCriada = await tabelasController.criarTabelaBarbeiro(db);
+            if (tabelaBarbeiroCriada) {
+                const tabelaClienteCriada = await tabelasController.createTabelaCliente(db);
+                if(tabelaClienteCriada) await tabelasController.criaTabelaHorario(db);
+            } 
         } else {
             console.log("Erro ao criar a tabela 'usuarios'. Outras tabelas não serão criadas.");
             return; // Encerra a função caso a criação falhe

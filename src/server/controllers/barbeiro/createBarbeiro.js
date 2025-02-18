@@ -38,15 +38,21 @@ const createSchemasResultados = async (req,res)=>{
         //testando extrção de id pelo JTW 
         console.log('usuario autenticado', )
         // Extrai o nome da cidade do corpo da requisição
-        const {nomeBarbeiro,emailBarbeiro,telefoneBarbeiro,usuario_id} = req.body
+        const {nomeBarbeiro,emailBarbeiro,telefoneBarbeiro,usuario_id,role} = req.body
         // Cria a barbeiro no banco de dados
-        const novoBarbeiro = await createBarbeiro(nomeBarbeiro,emailBarbeiro,telefoneBarbeiro,usuario_id)
+        const novoBarbeiro = await createBarbeiro(nomeBarbeiro,emailBarbeiro,telefoneBarbeiro,usuario_id,role)
+        if(!novoBarbeiro.barbeiro){
+            return res.status(novoBarbeiro.status).json({
+                message: novoBarbeiro.message
+            });
+        }
         //horarioPadrao
         const horariosPadrao = ["08:00","09:00", "10:00", "11:00", "14:00", "15:00","16:00","17:00"];
         for (let horario of horariosPadrao)
             {
-                await HorarioPadrao(horario,new Date(),novoBarbeiro.barbeiro.id)
+                await HorarioPadrao(horario,new Date(),novoBarbeiro.barbeiro.id,role)
         }// Resposta de sucesso
+        
         return res.status(novoBarbeiro.status).json({
             barbeiro:novoBarbeiro.barbeiro,
             horarioPadrao: horariosPadrao,
