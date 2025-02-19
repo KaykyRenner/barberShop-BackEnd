@@ -7,29 +7,23 @@ const selecionandoBarbeiro = async (id,ClienteId) => {
         .where({id})
         .first()
         if(!BarbeiroExisting){
-            return {
-                message:'barbeiro não existe',
-                status:StatusCodes.NOT_FOUND
-            }
+            return {message:'barbeiro não existe',status:StatusCodes.NOT_FOUND}
         }
+        
         const idCliente = await knex('cliente')
         .select('id')
         .where({user_id:ClienteId})
         .first()
-        if(idCliente.length === 0){
-            return {
-                message:'barbeiro não existe',
-                status:StatusCodes.NOT_FOUND
-            }
-        }
+        if(idCliente){return {message:'cliente não existe',status:StatusCodes.NOT_FOUND}
+    }
+
         const insertCliente = idCliente.id
         const InsertBarberInCliente = await knex('cliente')
         .where({id:insertCliente})
         .update({barbeiro_Id:id})
-        return {
-            message: 'Barbeiro atribuído ao cliente com sucesso',
-            status: StatusCodes.OK,
-        }
+
+        return {message: 'Barbeiro atribuído ao cliente com sucesso',status: StatusCodes.OK,}
+
     }catch(err){
         console.error('Erro ao selecionar barbeiro ', err);
         return {
