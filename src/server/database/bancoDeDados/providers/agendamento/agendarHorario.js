@@ -3,7 +3,7 @@ const knex = require('../../database');
 const reservarHorario = async (reservar,idHorario,role,user_id) => {
     try{
         const cliente_idResult = await knex('cliente')
-        .select('id')
+        .select('id','barbeiro_id')
         .where({ user_id })
         .first();
         if(!cliente_idResult){
@@ -13,6 +13,13 @@ const reservarHorario = async (reservar,idHorario,role,user_id) => {
             };
         }
         const clienteId =cliente_idResult.id
+        const BarberCliente = cliente_idResult.barbeiro_id
+        if(BarberCliente == null){
+            return {
+                message: 'Você precisa escolher um barbeiro antes de agendar um horário.',
+                status: StatusCodes.BAD_REQUEST,
+            };
+        }
         if(role !== 'cliente'){
             return {
                 message:'você não tem permissão',
@@ -26,9 +33,16 @@ const reservarHorario = async (reservar,idHorario,role,user_id) => {
             }
         }
         const horarioExist = await knex('horarioBarbeiro')
-        .select('id','status')
+        .select('id','status','barbeiro_id')
         .where({id:idHorario})
         .first()
+        const barberHorario = horarioExist.barbeiro_id
+        if(barberHorario != BarberCliente) {
+            return {
+                message:'o horario deve ser o memso do seu barbeiro',
+                status:StatusCodes.CONFLICT
+            }
+        }
         if(!horarioExist || horarioExist.status === 'reservado'){
             return {
                 message:'horario não encontrado ou reservado',

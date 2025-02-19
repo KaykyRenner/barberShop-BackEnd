@@ -18,6 +18,8 @@ router.get('/barbeiro',authenticate,barbeiroController.getAllSchmasValidation, b
 //horario do barbeiro
 router.put('/barbeiro/horario/:id',authenticate,horarioController.horarioSchemaValidation,horarioController.horariosSchemasResultados)
 router.get('/barbeiros/:id/horarios',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
+//seleciona barbeiro para Cliente agendar horario
+router.put('/cliente/barbeiro/:id',authenticate,agendamentoControlelr.selecionaBarbeiroValidation,agendamentoControlelr.selecionaBarbeiroResultado)
 //agendar Horario
 router.put('/cliente/agendamento/:id',authenticate,agendamentoControlelr.agendaHorarioValidation,agendamentoControlelr.agendarHorarioResultados)
 //rota cliente
