@@ -3,7 +3,7 @@ const yup = require('yup')
 const {validation} = require('../../shared/middlewares/validation')
 //createCidade
 const {createBarbeiro} = require('../../database/bancoDeDados/providers/barbeiro/createBarbeiro')
-const {HorarioPadrao} = require('../../database/bancoDeDados/providers/horarioBarbeiro/createHorario')
+const {criatHorario} = require('../../database/bancoDeDados/providers/horarioBarbeiro/createHorario')
 // Esquema de validação com Yup
 const esquemavalidation = yup.object().shape({
     usuario_id: yup
@@ -50,7 +50,7 @@ const createSchemasResultados = async (req,res)=>{
         const horariosPadrao = ["08:00","09:00", "10:00", "11:00", "14:00", "15:00","16:00","17:00"];
         for (let horario of horariosPadrao)
             {
-                await HorarioPadrao(horario,new Date(),novoBarbeiro.barbeiro.id,role)
+                await criatHorario(horario,new Date(),novoBarbeiro.barbeiro.id,role)
         }// Resposta de sucesso
         
         return res.status(novoBarbeiro.status).json({

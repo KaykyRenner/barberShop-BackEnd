@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {authenticate} = require('../shared/middlewares/authenticade')
+const {authenticate } = require('../shared/middlewares/authenticade')
 //facilitando a ultilização de status
-const {StatusCode} = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes');
 //importanto as rotas da cidade
 const {barbeiroController,clienteController,horarioController, usuarioController,agendamentoControlelr} = require('../controllers/index');
 
@@ -16,12 +16,14 @@ router.put('/barbeiro/:id',authenticate,barbeiroController.updateSchemasValidati
 router.get('/barbeiro/:id',authenticate,barbeiroController.getSchemasValidation, barbeiroController.getSchemasResultados)
 router.get('/barbeiro',authenticate,barbeiroController.getAllSchmasValidation, barbeiroController.getAllSchemasResultados)
 //horario do barbeiro
+router.post('/barbeiro/horario',authenticate,horarioController.createHorarioValidation,horarioController.createHorarioResultados)
 router.put('/barbeiro/horario/:id',authenticate,horarioController.horarioSchemaValidation,horarioController.horariosSchemasResultados)
-router.get('/barbeiros/:id/horarios',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
+router.get('/barbeiro/:id/horario',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)
 //seleciona barbeiro para Cliente agendar horario
 router.put('/cliente/barbeiro/:id',authenticate,agendamentoControlelr.selecionaBarbeiroValidation,agendamentoControlelr.selecionaBarbeiroResultado)
 //agendar Horario
 router.put('/cliente/agendamento/:id',authenticate,agendamentoControlelr.agendaHorarioValidation,agendamentoControlelr.agendarHorarioResultados)
+router.put('/cliemte/cancelarHorario/:id',authenticate,agendamentoControlelr.cancelarHorarioValidation, agendamentoControlelr.cancelarHorarioResultados)
 //rota cliente
 router.post('/cliente',authenticate, clienteController.CreateSchemasValidation,clienteController.createClienteSchemasResultados)
 router.delete('/cliente/:id',authenticate, clienteController.deleteClienteValidation, clienteController.deleteClienteSchemasResultados);

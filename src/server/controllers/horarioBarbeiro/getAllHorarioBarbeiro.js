@@ -14,9 +14,10 @@ const esquemavalidation = yup.object().shape({
 })
 const getAllHorariosResultados = async (req,res)=>{
     try{
+        const {role,usuario_id} = req.body
         const {page=1,limit=10,filter=''} = req.query
         const{id} = req.params
-        const pegandoHorarios = await getAllHorario(id,page,limit,filter)
+        const pegandoHorarios = await getAllHorario(role,usuario_id,id,page,limit,filter)
         return res.status( pegandoHorarios.status).json({
             horarios:pegandoHorarios.horarios,
             message:pegandoHorarios.message  

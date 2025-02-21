@@ -6,6 +6,11 @@ const esquemaValidation = yup.object().shape({
     reservar: yup.string()
     .oneOf(['reservado'])
     .required(),
+    id: yup
+            .number()
+            .required('O ID é obrigatório.')
+            .integer()
+            .moreThan(0)
 })
 const agendarHorarioResultados = async (req,res) => {
     try{

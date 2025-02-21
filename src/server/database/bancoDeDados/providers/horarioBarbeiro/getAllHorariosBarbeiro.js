@@ -1,7 +1,29 @@
 const { StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
-const getAllHorario = async (id,page,limit,filter) => {
+const getAllHorario = async (role,usuario_id,id,page,limit,filter) => {
     try{
+        if(role === 'cliente') return {message:'você não tem permisão para acessar esssa rota',status:StatusCodes.FORBIDDEN}
+        if (role === 'barbeiro') {
+            const negaBarbeiro = await knex('barbeiros')
+                .select('id')
+                .where('user_id', usuario_id)
+                .first();
+                console.log(negaBarbeiro.id, id)
+        
+            if (!negaBarbeiro) {
+                return {
+                    message: 'Barbeiro não encontrado.',
+                    status: StatusCodes.NOT_FOUND
+                };
+            }
+        
+            if (Number(negaBarbeiro.id) !== Number(id)) {
+                return {
+                    message: 'Você só pode acessar seus próprios horários.',
+                    status: StatusCodes.FORBIDDEN
+                };
+            }
+        }
         const pegaPage = Number(page)
         const pegaLimit = Number(limit)
         if(isNaN(pegaPage)||pegaPage<=0||isNaN(pegaLimit)||pegaLimit<=0){
