@@ -1,0 +1,88 @@
+Barbearia - Sistema de Agendamentos 💈
+📌 Sobre o Projeto
+Este é um sistema de agendamento para uma barbearia, onde os clientes podem marcar horários com barbeiros, e os pagamentos são processados ​​diretamente para cada profissional. O projeto usa Node.js , Express , MySQL no back-end , e estou preparando para integração com APIs de pagamento como Mercado Pago ou Stripe .
+
+🚀 Tecnologias Utilizadas
+✔ Back-end: Node.js, Express, MySQL
+✔ Autenticação: JWT (JSON Web Token)
+✔ Pagamentos (Futuros): Mercado Pago / Stripe (planejado)
+✔ Front-end (Futuro): React.js (planejado)
+
+🔧 Instalação e Configuração
+Pré-requisitos
+Node.js instalado
+MySQL rodando
+1️⃣ Clonar o repositório
+
+
+git clone https://github.com/seu-usuario/barbearia.git
+cd barbearia
+2️⃣ Instale as dependências
+
+
+npm install
+3️⃣ Configurar o banco de dados
+No arquivo .env, configure suas credenciais do MySQL:
+
+
+DB_HOST=localhost  
+DB_USER=root  
+DB_PASSWORD=sua_senha  
+DB_NAME=barbearia_db  
+JWT_SECRET= sua chave secreta
+PORT= sua porta
+npm start
+O servidor rodará em http://localhost:3000🚀
+
+Barbeiros - CRUD
+POST /barbeiro → Criar barbeiro
+router.post('/barbeiro', authenticate, barbeiroController.createSchemasValidation, barbeiroController.createSchemasResultados)
+DELETE /barbeiro/ :id → Excluir barbeiro
+router.delete('/barbeiro/:id', authenticate, barbeiroController.deleteSchemasValidation, barbeiroController.deleteSchemasResultados)
+PUT /barbeiro/ :id → Atualizar barbeiro
+router.put('/barbeiro/:id', authenticate, barbeiroController.updateSchemasValidation, barbeiroController.updateSchemasResultados)
+GET /barbeiro/ :id → Buscar barbeiro por ID
+router.get('/barbeiro/:id', authenticate, barbeiroController.getSchemasValidation, barbeiroController.getSchemasResultados)
+GET /barbeiro → Listar todos os barbeiros
+router.get('/barbeiro', authenticate, barbeiroController.getAllSchemasValidation, barbeiroController.getAllSchemasResultados)
+🕒 Horários dos Barbeiros
+POST /barbeiro/horario → Criar horário de atendimento
+router.post('/barbeiro/horario', authenticate, horarioController.createHorarioValidation, horarioController.createHorarioResultados)
+PUT /barbeiro/horario/ :id → Atualizar horário
+router.put('/barbeiro/horario/:id', authenticate, horarioController.horarioSchemaValidation, horarioController.horariosSchemasResultados)
+GET /barbeiro/ :id /horario → Listar horários do barbeiro
+router.get('/barbeiro/:id/horario', authenticate, horarioController.getAllSchemaValidation, horarioController.getAllHorariosResultados)
+📅 Agendamentos
+PUT /cliente/barbeiro/ :id → Selecionar barbeiro para agendamento
+router.put('/cliente/barbeiro/:id', authenticate, agendamentoControlelr.selecionaBarbeiroValidation, agendamentoControlelr.selecionaBarbeiroResultado)
+PUT /cliente/agendamento/ :id → Agendar horário
+router.put('/cliente/agendamento/:id', authenticate, agendamentoControlelr.agendaHorarioValidation, agendamentoControlelr.agendarHorarioResultados)
+PUT /cliente/cancelarHorario/ :id → Cancelar horário agendado
+router.put('/cliente/cancelarHorario/:id', authenticate, agendamentoControlelr.cancelarHorarioValidation, agendamentoControlelr.cancelarHorarioResultados)
+🧑‍🤝‍🧑 Clientes
+POST /cliente → Criar cliente
+router.post('/cliente', authenticate, clienteController.CreateSchemasValidation, clienteController.createClienteSchemasResultados)
+DELETE /cliente/ :id → Excluir cliente
+router.delete('/cliente/:id', authenticate, clienteController.deleteClienteValidation, clienteController.deleteClienteSchemasResultados)
+PUT /cliente/ :id → Atualizar cliente
+router.put('/cliente/:id', authenticate, clienteController.updateClienteSchemasValidation, clienteController.updateClienteSchemasResultados)
+GET /cliente/ :id → Buscar cliente por ID
+router.get('/cliente/:id', authenticate, clienteController.getClienteSchemasValidation, clienteController.getClienteSchemasResultados)
+GET /cliente → Listar todos os clientes
+router.get('/cliente', authenticate, clienteController.getAllSchemasValidation, clienteController.getAllSchemasResultados)
+💻 Usuários
+POST /cadastrar → Usuário registrador
+router.post('/cadastrar', usuarioController.singUpValidation, usuarioController.singUpResultados)
+POST /entrar → Login do usuário
+router.post('/entrar', usuarioController.singInValidation, usuarioController.singInResultados)
+
+
+🛠 Melhorias Futuras
+📌 Integração com Pagamentos
+📌 Criar painel para clientes e barbeiros (React.js)
+📌 Implementar sistema de notificações por e-mail ou WhatsApp
+📌 Dashboard para barbeiros visualizando ganhos
+📞 Contato
+👨‍💻 Desenvolvido por Kayky Renner
+📧 E-mail: kayky.renner.sg@gmail.com
+🔗 LinkedIn: https://www.linkedin.com/in/kayky-renner-7955ba1a0/
