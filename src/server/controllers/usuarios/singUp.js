@@ -23,7 +23,7 @@ const singUpResultados = async (req,res) =>{
         const createUsu = await createUsuario(senha,email,role)
         return  res.status(createUsu.status).json({
             message:createUsu.message,
-            resultado:createUsu.usuario
+            resultado:createUsu.data
         })
     }catch(err){
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

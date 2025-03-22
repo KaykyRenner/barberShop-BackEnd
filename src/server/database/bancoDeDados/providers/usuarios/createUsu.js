@@ -10,7 +10,7 @@ const createUsuario = async (senha,email,role) => {
         .first()
         if(exists){
             return{
-            message: 'Email já cadastrado',
+            message: 'Email ou Senha já cadastrado',
             status: StatusCodes.BAD_REQUEST
         };}
         const [id] = await knex('usuarios')
@@ -21,7 +21,7 @@ const createUsuario = async (senha,email,role) => {
         .first()
         return{
             message:'usuario Cadastrado',
-            usuario:buscaResultado,
+            data:buscaResultado,
             status:StatusCodes.CREATED
         }
     }catch(err){

@@ -19,6 +19,7 @@ const singInResultados = async (req,res) => {
     try{
         const {senha,email}= req.body
         const resultEmail = await getByEmail(email)
+        console.log(resultEmail)
         if(!resultEmail){
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 default: 'email ou senha está incorreto'

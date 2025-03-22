@@ -12,10 +12,12 @@ const esquemaValidation = yup.object().shape({
 const selecionaBarbeiroResultado = async (req,res) => {
     try{
         const {usuario_id} = req.body
+        console.log(usuario_id)
         const {id} = req.params
         const resultado = await selecionandoBarbeiro(id,usuario_id)
         return res.status( resultado.status).json({
             message:resultado.message,
+            barbeiroId:resultado.barbeiroId
 
         })
     }catch(err){

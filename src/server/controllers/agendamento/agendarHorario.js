@@ -33,7 +33,8 @@ const agendarHorarioResultados = async (req,res) => {
 }
 const getSchemas = ()=>{
     return{
-        body:esquemaValidation
+        body:esquemaValidation.pick(["reservar"]),
+        params:esquemaValidation.pick(["id"])
     }
 }
 const agendaHorarioValidation = validation(getSchemas)

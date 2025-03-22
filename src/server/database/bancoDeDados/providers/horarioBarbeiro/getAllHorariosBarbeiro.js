@@ -1,8 +1,26 @@
 const { StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
+const { where } = require('sequelize');
 const getAllHorario = async (role,usuario_id,id,page,limit,filter) => {
     try{
-        if(role === 'cliente') return {message:'você não tem permisão para acessar esssa rota',status:StatusCodes.FORBIDDEN}
+       if(role === 'cliente'){
+        const negaCliente = await knex('cliente')
+        .select('id','barbeiro_id')
+        .where('user_id',usuario_id)
+        .first()
+        if(!negaCliente){
+            return{
+                message:'cliente nao encontrado',
+                status:StatusCodes.NOT_FOUND
+            }
+        }
+        if(Number(negaCliente.barbeiro_id) !== Number(id)){
+            return{
+                message:'voce so pode acessar horarios de barbeiro selecionado',
+                status:StatusCodes.FORBIDDEN
+            }
+        }
+       }
         if (role === 'barbeiro') {
             const negaBarbeiro = await knex('barbeiros')
                 .select('id')

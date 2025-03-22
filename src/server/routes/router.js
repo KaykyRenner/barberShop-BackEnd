@@ -9,13 +9,14 @@ const {barbeiroController,clienteController,horarioController, usuarioController
 router.get('/', (req,res)=>{
     res.send("barbearia funcionando");
 });
-//rota da barberaria
+//rota da barbeiro
 router.post('/barbeiro',authenticate,barbeiroController.createSchemasValidation,barbeiroController.createSchemasResultados)
 router.delete('/barbeiro/:id',authenticate,barbeiroController.deleteSchemasValidation,barbeiroController.deleteSchemasResultados)
 router.put('/barbeiro/:id',authenticate,barbeiroController.updateSchemasValidation,barbeiroController.updateSchemasResultados)
 router.get('/barbeiro/:id',authenticate,barbeiroController.getSchemasValidation, barbeiroController.getSchemasResultados)
-router.get('/barbeiro',authenticate,barbeiroController.getAllSchmasValidation, barbeiroController.getAllSchemasResultados)
+router.get('/barbeiro',barbeiroController.getAllSchmasValidation, barbeiroController.getAllSchemasResultados)
 //horario do barbeiro
+router.get('/barbeiro/horario/:id',authenticate,horarioController.getByIdHorariosValidation,horarioController.getByIdHorariosResultado)
 router.post('/barbeiro/horario',authenticate,horarioController.createHorarioValidation,horarioController.createHorarioResultados)
 router.put('/barbeiro/horario/:id',authenticate,horarioController.horarioSchemaValidation,horarioController.horariosSchemasResultados)
 router.get('/barbeiro/:id/horario',authenticate,horarioController.getAllSchemaValidation,horarioController.getAllHorariosResultados)

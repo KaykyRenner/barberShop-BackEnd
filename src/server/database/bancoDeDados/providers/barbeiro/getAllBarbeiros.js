@@ -1,9 +1,12 @@
 const{ StatusCodes } = require('http-status-codes');
 const knex = require('../../database');
 const getAllBarbeiros = async(page,limit,filter)=>{
-    try{
+    try{      
         const pegaPage = Number(page);
         const pegaLimit = Number(limit)
+        if (filter.trim() === '') {
+            filter = ''; //
+          }
         if(isNaN(pegaPage)||pegaPage <=0|| isNaN(pegaLimit)||pegaLimit<=0){
             return { 
                 message: 'Os parâmetros "page" e "limit" devem ser números inteiros positivos.', 
@@ -15,9 +18,10 @@ const getAllBarbeiros = async(page,limit,filter)=>{
         .where('nomeBarbeiro', 'like', `%${filter}%`)
         .limit(pegaLimit)
         .offset(offset)
-
+        
+      
         if(Array.isArray(resultado) && resultado.length>0){
-            return {barbeiros:resultado,message:'encontrado',status:StatusCodes.OK}
+            return {data:resultado,message:'encontrado',status:StatusCodes.OK}
         } else{
             return {message:'não encontrado', status:StatusCodes.NOT_FOUND}
         }

@@ -6,7 +6,7 @@ const {getAllBarbeiros} = require('../../database/bancoDeDados/providers/barbeir
 const esquemavalidation = yup.object().shape({
     page:yup.number().notRequired().min(1).integer(),
     limit: yup.number().notRequired().min(1).integer(),
-    filter:yup.string().notRequired().trim().min(3).max(255)
+    filter:yup.string().notRequired().trim().min(0).max(255)
 });
 const getAllSchemasResultados = async (req,res) =>{
     res.setHeader('access-control-expose-headers', 'x-total-count');
@@ -14,12 +14,12 @@ const getAllSchemasResultados = async (req,res) =>{
         const {page = 1,limit = 10,filter = ''} = req.query
         const getAll = await getAllBarbeiros(page,limit,filter)
 
-        const totalCount = await count(filter); // Número total de itens (exemplo)
-        // Configuração do cabeçalho para a contagem total
+        const totalCount = await count(filter); 
+        
         res.setHeader('x-total-count', totalCount);
         return res.status(getAll.status).json({
             message:getAll.message,
-            barbeiros:getAll.barbeiros
+            data:getAll.data
         })
         
     }catch(err){
