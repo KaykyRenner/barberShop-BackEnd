@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
 const cron = new CronJob(
-  "00 00 * * *", // Executa todos os dias às 14:12
+  "0 0 * * * ", // Executa todos os dias às 14:12
   async function () {
     console.log("executando o reset horario...");
     await resetaHorarioDiarios();
